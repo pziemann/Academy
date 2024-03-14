@@ -1,0 +1,42 @@
+  113  git remote -v
+  114  git push
+  115  git push -u origin main
+  116  echo "Wyniki poprzednich ćwiczeń" > tekst.txt
+  117  git status
+  118  git add tekst.txt
+  119  git commit -m "Dodanie pliku tekstowego z wynikami"
+  120  git checkout -b develop
+  121  git push -u origin main
+  122  git push -u origin develop
+  123  git status
+  124  git tekst.txt
+  125  nano tekst.txt
+  126  git checkout main
+  127  nano tekst.txt
+  128  git status
+  129  git add tekst.txt
+  130  git status
+  131  git commit -am "Zmiana na main"
+  132  git push -u origin main
+  133  git checkout develop
+  134  nano tekst.txt
+  135  git add tekst.txt
+  136  git commit -am "Zmiana na branchu develop"
+  137  git checkout main
+  138  git status
+  139  push -u origin main
+  140  git push -u origin main
+  141  git checkout develop
+  142  git push 
+  143  git checkout main
+  144  git merge develop
+  145  nano tekst.txt
+  146  git merge --continue
+  147  git add tekst.txt
+  148  git merge --continue
+  149  git commit -m "Rozwiązanie konfliktów"
+  150  git push 
+  151  git status
+  152  history
+  153  history | tail -43
+  154  history | tail -42 > historia_polecen.txt
