@@ -5,6 +5,8 @@ import os
 import flask
 import platform
 
+app_version = "1.0"
+
 logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
 
@@ -45,7 +47,7 @@ def show_python_version():
     python_version = platform.python_version()
     return f"Python Version: {python_version}"
 
-#Function to retrieve log levels
+#Function to retrieve log levels (default log levels)
 def log_levels():
     default_levels = []
     for level in [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR, logging.CRITICAL]:
