@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, url_for
 from random import randint
 import logging
 import os
@@ -6,14 +6,14 @@ import os
 logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
 
-# Main page
+#Main page
 @app.route("/", methods=["GET"])
 def main_page():
-    # Log messages of different levels
+
     log_messages = log_levels()
     env_info = get_envs()
-    return f"<h1>Log levels:</h1>{log_messages}<br><h1>Environment variables:</h1>{env_info}"
-
+    endpoints_info = get_endpoints()
+    return f"<h1>Log levels:</h1>{log_messages}<br><h1>Environment variables:</h1>{env_info}<br><h1>Endpoints:</h1><br>{endpoints_info}"
 # Endpoint get-item creation
 @app.route("/get-item", methods=["GET"])
 def random_number():
@@ -34,6 +34,13 @@ def get_envs():
         env_info.append(f"{key}: {value}")
     return "<br>".join(env_info)
 
+def get_endpoints():
+    endpoints_info = []
+    for rule in app.url_map.iter_rules():
+        if rule.endpoint != 'static':
+            endpoint_url = url_for(rule.endpoint)
+            endpoints_info.append(f"{rule.endpoint}: {endpoint_url}")
+    return "<br>".join(endpoints_info)
 
 if __name__ == "__main__":
     app.run(debug=True)
