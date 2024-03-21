@@ -17,18 +17,17 @@ def main_page():
 # Endpoint get-item creation
 @app.route("/get-item", methods=["GET"])
 def random_number():
-    random_num = randint(1, 1000)  # Random number 1-1000    
+    random_num = randint(0, 1000)  # Random number 0-1000    
     return f"{random_num}"
 
 
 # Function to retrieve log levels and messages
 def log_levels():
-    log_messages = []
-    for level in ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']:
-        message = f"{level} log info"
-        logging.getLogger(__name__).log(getattr(logging, level), message)
-        log_messages.append(message)
-    return "<br>".join(log_messages)
+    default_levels = []
+    for level in [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR, logging.CRITICAL]:
+        level_name = logging.getLevelName(level)
+        default_levels.append(f"{level_name}: {level}")
+    return "<br>".join(default_levels)
 def get_envs():
     env_info = []
     for key, value in os.environ.items():
