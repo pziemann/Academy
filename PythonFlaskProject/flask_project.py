@@ -3,6 +3,7 @@ from random import randint
 import logging
 import os
 import flask
+import platform
 
 logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
@@ -32,10 +33,17 @@ def name_surname(name):
 def author_print():
     return "Paweł Ziemann"
 
+#Flask version
 @app.route("/flask-version", methods=["GET"])
 def show_flask_version():
     flask_version = flask.__version__
     return f"Flask Version: {flask_version}"
+
+#Python version
+@app.route("/python-version", methods=["GET"])
+def show_python_version():
+    python_version = platform.python_version()
+    return f"Python Version: {python_version}"
 
 #Function to retrieve log levels
 def log_levels():
