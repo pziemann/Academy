@@ -5,9 +5,12 @@ import os
 import flask
 import platform
 
-app_version = "1.0"
+app_version = "1.0.1"
 
 logging.basicConfig(level=logging.DEBUG)
+#Version of the application
+print(f"Starting Flask application version {app_version}")
+#Initialize the app
 app = Flask(__name__)
 
 #Main page
@@ -70,6 +73,3 @@ def get_endpoints():
             endpoint_url = url_for(rule.endpoint)
             endpoints_info.append(f"{rule.endpoint}: {endpoint_url}")
     return "<br>".join(endpoints_info)
-
-if __name__ == "__main__":
-    app.run(debug=True)
