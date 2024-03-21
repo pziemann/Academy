@@ -9,31 +9,44 @@ app = Flask(__name__)
 #Main page
 @app.route("/", methods=["GET"])
 def main_page():
-
     log_messages = log_levels()
     env_info = get_envs()
     endpoints_info = get_endpoints()
     return f"<h1>Log levels:</h1>{log_messages}<br><h1>Environment variables:</h1>{env_info}<br><h1>Endpoints:</h1><br>{endpoints_info}"
-# Endpoint get-item creation
+
+#Endpoint get-item creation
 @app.route("/get-item", methods=["GET"])
 def random_number():
     random_num = randint(0, 1000)  # Random number 0-1000    
     return f"{random_num}"
 
+#Route to give name, surname in the endpoint
+@app.route("/namesurname/")
+@app.route("/namesurname/<name>")
+def name_surname(name):
+    return "Hello, " + name
 
-# Function to retrieve log levels and messages
+#Author
+@app.route("/author")
+def author_print():
+    return "Paweł Ziemann"
+
+#Function to retrieve log levels
 def log_levels():
     default_levels = []
     for level in [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR, logging.CRITICAL]:
         level_name = logging.getLevelName(level)
         default_levels.append(f"{level_name}: {level}")
     return "<br>".join(default_levels)
+
+#Function to retrieve envs
 def get_envs():
     env_info = []
     for key, value in os.environ.items():
         env_info.append(f"{key}: {value}")
     return "<br>".join(env_info)
 
+#Function to get endpoints
 def get_endpoints():
     endpoints_info = []
     for rule in app.url_map.iter_rules():
