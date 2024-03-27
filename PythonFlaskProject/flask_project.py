@@ -8,8 +8,10 @@ import platform
 app_version = "1.0.1"
 
 logging.basicConfig(level=logging.DEBUG)
+
 #Version of the application
 print(f"Starting Flask application version {app_version}")
+
 #Initialize the app
 app = Flask(__name__)
 
@@ -61,7 +63,7 @@ def log_levels():
 #Function to retrieve envs
 def get_envs():
     env_info = []
-    for key, value in os.environ.items():
+    for key, value in os.environ.items(): #An object that represents users environment variables and their values
         env_info.append(f"{key}: {value}")
     return "<br>".join(env_info)
 
@@ -73,3 +75,6 @@ def get_endpoints():
             endpoint_url = url_for(rule.endpoint)
             endpoints_info.append(f"{rule.endpoint}: {endpoint_url}")
     return "<br>".join(endpoints_info)
+
+if __name__ == '__main__':
+    app.run()
