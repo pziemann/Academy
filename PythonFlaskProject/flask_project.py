@@ -27,6 +27,8 @@ def main_page():
 @app.route("/get-item", methods=["GET"])
 def random_number():
     random_num = randint(0, 1000)  # Random number 0-1000    
+    with open('archive/output.txt', 'a') as file:
+        file.write(str(random_number) + '\n')
     return f"{random_num}"
 
 #Route to give name, surname in the endpoint
