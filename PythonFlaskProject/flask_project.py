@@ -31,7 +31,7 @@ def random_number():
     if not os.path.exists("archive"):
         os.makedirs("archive")   
     with open('archive/output.txt', 'a') as file:
-        file.write(str(random_number) + '\n')
+        file.write(str(random_num) + '\n')
     return f"{random_num}"
 
 #Route to give name, surname in the endpoint
