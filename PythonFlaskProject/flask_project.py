@@ -5,7 +5,7 @@ import os
 import flask
 import platform
 
-app_version = "1.0.2"
+app_version = "1.1"
 
 logging.basicConfig(level=logging.DEBUG)
 
