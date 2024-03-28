@@ -5,12 +5,12 @@ import os
 import flask
 import platform
 
-app_version = "1.0.1"
+app_version = "1.0.2"
 
 logging.basicConfig(level=logging.DEBUG)
 
 #Version of the application
-print(f"Starting Flask application version {app_version}")
+print(f"Starting Flask application version {app_version} with a twist")
 
 #Initialize the app
 app = Flask(__name__)
