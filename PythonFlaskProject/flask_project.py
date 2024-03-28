@@ -26,7 +26,10 @@ def main_page():
 #Endpoint get-item creation
 @app.route("/get-item", methods=["GET"])
 def random_number():
-    random_num = randint(0, 1000)  # Random number 0-1000    
+    random_num = randint(0, 1000)  # Random number 0-1000
+    #If directory does not exist, make it
+    if not os.path.exists("archive"):
+        os.makedirs("archive")   
     with open('archive/output.txt', 'a') as file:
         file.write(str(random_number) + '\n')
     return f"{random_num}"
