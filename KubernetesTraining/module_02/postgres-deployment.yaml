@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: odoo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:14
+          ports:
+            - containerPort: 5432
+          env:
+            - name: ALLOW_EMPTY_PASSWORD
+              value: "yes"
+            - name: POSTGRES_PASSWORD
+              value: bitnami
+            - name: POSTGRES_USER
+              value: odoo
+            - name: POSTGRES_DATABASE
+              value: odoo
+
