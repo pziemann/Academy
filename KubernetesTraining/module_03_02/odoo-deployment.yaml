@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: odoo
+  namespace: odoo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: odoo
+  template:
+    metadata:
+      labels:
+        app: odoo
+    spec:
+      containers:
+      - name: odoo
+        image: docker.io/bitnami/odoo:16
+        envFrom:
+        - configMapRef:
+            name: odoo-configmap
+        env:
+          - name: ODOO_DATABASE_HOST
+            value: postgres
+          - name: ODOO_DATABASE_PORT
+            value: "5432"
+          - name: ODOO_DATABASE_NAME
+            value: odoo
+          - name: ODOO_USER_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: odoo-secret
+                key: ODOO_USER_PASSWORD
+          - name: ODOO_DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: odoo-secret
+                key: ODOO_DATABASE_PASSWORD
+        ports:
+        - containerPort: 8069
+
