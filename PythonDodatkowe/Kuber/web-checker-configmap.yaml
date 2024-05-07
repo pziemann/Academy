@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-checker-configmap
+  namespace: webchecker
+data:
+  URL_TO_CHECK: https://google.com
+  SENDER_EMAIL: pablo3452@gmail.com
+  RECIPIENT_EMAIL: pablo3452@gmail.com
+  BUCKET_NAME: webchecker-bucket
+  FILE_NAME: web-checker-logs.txt

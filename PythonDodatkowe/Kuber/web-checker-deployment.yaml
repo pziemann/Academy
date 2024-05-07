@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-checker
+  namespace: webchecker
+  labels:
+    app: web-checker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-checker
+  template:
+    metadata:
+      labels:
+        app: web-checker
+    spec:
+      volumes:
+      - name: log-volume
+        persistentVolumeClaim:
+          claimName: web-checker-log-pvc
+      containers:
+      - name: web-checker
+        image: pziemann3451/web-checker:7.0
+        command: ["python", "web-checker.py"]
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: log-volume
+          mountPath: /var/log
+        envFrom:
+        - configMapRef:
+            name: web-checker-configmap
+        env:
+        - name: SENDER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: web-checker-secret
+              key: SENDER_PASSWORD
+        - name: CREDENTIALS_JSON
+          valueFrom:
+            secretKeyRef:
+              name: web-checker-secret
+              key: CREDENTIALS_JSON
