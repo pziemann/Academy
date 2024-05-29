@@ -1,0 +1,6 @@
+Django==5.0.4
+Selenium==4.20.0
+Gunicorn==22.0.0
+psycopg2==2.9.9
+numpy==1.26.4
+Flask==3.0.3

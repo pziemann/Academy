@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zadanie-deployment
+  namespace: zadanie
+  labels:
+    app: zadanie
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zadanie
+  template:
+    metadata:
+      labels:
+        app: zadanie
+    spec:
+      containers:
+      - name: zadanie
+        image: eu.gcr.io/maestrolearning/zadanie@sha256:73ea7496089c2436c890d4b892d32c2ccd7ce212a5dfe90dee8fb525e34e956a
+        volumeMounts:
+        - name: config-volume
+          mountPath: "/config.cfg"
+        - name: log-volume
+          mountPath: "/logs/std.log"
+        resources:
+          requests:
+            cpu: 300m
+            memory: 3300Mi
+          limits:
+            cpu: 500m
+            memory: 7000Mi
+        envFrom:
+        - configMapRef:
+            name: zadanie-configmap
+        env:
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: zadanie-secret
+                key: DB_PASSWORD
+        ports:
+        - containerPort: 5005
+        livenessProbe:
+          initialDelaySeconds: 15
+          httpGet:
+            path: "/health"
+            port: 5005
+        readinessProbe:
+          initialDelaySeconds: 15
+          httpGet:
+            path: "/health"
+            port: 5005
+      volumes:
+      - name: config-volume
+        configMap:
+          name: additionalcfg
+      - name: log-volume
+        persistentVolumeClaim:
+          claimName: zadanie-pvc
+        

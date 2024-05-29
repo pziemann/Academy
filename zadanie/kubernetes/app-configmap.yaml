@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zadanie-configmap
+  namespace: zadanie
+data:
+  DB_NAME: postgres
+  DB_USER: postgres
+  DB_HOST: postgres
+  DB_PORT: "5432"
